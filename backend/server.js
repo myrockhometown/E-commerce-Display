@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 // 托管前端静态文件
-app.use(express.static(path.join(__dirname, '../frontend')));
+app.use(express.static(path.join(__dirname, '..')));
 
 // 获取所有商品分类
 app.get('/api/categories', async (req, res) => {
@@ -311,12 +311,22 @@ app.delete('/api/users/:id', async (req, res) => {
 
 // 对于根路径请求，返回前端页面
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../frontend/index.html'));
+  res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
 // 对于所有其他路径，也返回前端页面（支持前端路由）
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../frontend/index.html'));
+  res.sendFile(path.resolve(__dirname, '../index.html'));
+});
+
+// 处理根路径
+app.get('/', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../index.html'));
+});
+
+// 处理所有其他路径（支持前端路由）
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
